@@ -62,17 +62,37 @@
     color: 42,42,42;
 }
 /* Estilos para pantallas más pequeñas (menos de 768px de ancho) */
-@media screen and (min-width: 768px) {
+@media screen and (min-width: 767px) {
     .cont-menu {
-        width: 15%; /* Ancho del menú en pantallas pequeñas */
+        width: 100%; /* Ancho del menú en pantallas pequeñas */
         left: -100%; /* Inicialmente oculto fuera de la pantalla */
         transition: left 0.5s ease; /* Utiliza la propiedad "left" para la transición */
     }
+
     .active {
         left: 0; /* Muestra el menú moviéndolo a la izquierda */
     }
-}
 
+    /* Ajustes para el icono del menú en dispositivos móviles */
+    .icono-menu {
+        left: 15px;
+        top: 15px;
+    }
+
+    .icono-menu img {
+        width: 30px;
+    }
+
+    /* Ajustes para el listado del menú en dispositivos móviles */
+    .cont-menu ul {
+        padding: 20px 0;
+    }
+
+    .cont-menu ul li {
+        font-size: 20px;
+        padding: 10px 15px;
+    }
+}
 #map-container {
     width: 100vw; /* Ancho al 100% del viewport (ancho de la ventana del navegador) */
     height: 100vh; /* Altura al 100% del viewport (alto de la ventana del navegador) */

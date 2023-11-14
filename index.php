@@ -73,7 +73,7 @@
                 </button>
                 <div class="modal-body">
                     <!-- Contenido del gráfico -->
-                    <div id="container" style="width: 100%; height: 400px;"></div>
+                    <div id="container" style="width: 100%; height: 350px;"></div>
                 </div>
             </div>
         </div>

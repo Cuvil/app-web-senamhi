@@ -21,7 +21,6 @@
                     }
                 }
             });
-
             return allItems;
         });
 
@@ -75,11 +74,12 @@
         
             yellowTo = orangeFrom; // El final del amarillo es el comienzo del naranja
             orangeTo = redFrom; // El final del naranja es el comienzo del rojo
+
             // Filtra los datos del nivel que corresponden a la estación con el 'estacionId' proporcionado.
 
             const datosNivel = niveles.filter((nivel) => nivel.EstId === estacionId);
 
-            // Luego, crea las series de acuerdo a los datos filtrados:
+            //Luego, crea las series de acuerdo a los datos filtrados:
             const normalData = datosNivel.map((nivel) => nivel.NivelNormal === "" ? null : nivel.NivelNormal);
             const pasadoData = datosNivel.map((nivel) => nivel.NivelAHPasado === "" ? null : nivel.NivelAHPasado);
             const actualData = datosNivel.map((nivel) => nivel.NivelAHActual === "" ? null : nivel.NivelAHActual);
