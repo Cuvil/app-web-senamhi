@@ -3,7 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Senamhi</title>
+    <meta name="google-site-verification" content="kOeN4tbtDsADGYewavTtdB1UKpVWJXS5eHpvUhZvMrU" />
+    <title>Senamhidz8</title>
+    <meta name="dz8" content="senamhi direccion zonal 8 dz8">
     <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
     <!-- Agrega estos enlaces en la sección head de tu HTML -->
@@ -58,6 +60,11 @@
             <li>Home</li>
         </ul>
     </div>
+    <!-- Agrega el botón Hidrológico -->
+    <button id="hidrologicoButton" class="btn btn-primary" style="position: absolute; top: 10px; left: 60%; transform: translateX(-50%); z-index: 1000;">Hidrológico</button>
+
+    <button id="climaButton" class="btn btn-primary" style="position: absolute; top: 10px; left: 50%; transform: translateX(-50%); z-index: 1000;">Clima</button>
+
 
     <div id="map-container">
         <div id="map"></div>

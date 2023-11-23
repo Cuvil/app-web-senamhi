@@ -138,5 +138,58 @@ document.addEventListener('DOMContentLoaded', function () {
         $('#graph-modal .modal-dialog').css('max-width', width + '80%');
         $('#graph-modal .modal-dialog').css('max-height', height + '24%');
     });
+
+
+    let marcadorClima = null;
+
+    // Agrega un evento de clic al botón "Clima" para mostrar un único marcador
+    document.getElementById('climaButton').addEventListener('click', function () {
+        // Elimina todos los marcadores actuales en el mapa
+        mapa.eachLayer(function (layer) {
+            if (layer instanceof L.Marker) {
+                mapa.removeLayer(layer);
+            }
+        });
+
+        // Crea un marcador para el clima y añádelo al mapa
+        marcadorClima = L.marker([-3.722, -73.092], {
+            icon: L.icon({
+                iconUrl: 'img/Marker/rojo.png', // Ruta al icono que desees usar
+                iconSize: [40, 40],
+                iconAnchor: [20, 40],
+            }),
+        }).addTo(mapa);
+
+        // Agrega un tooltip al marcador para mostrar el nombre al pasar el mouse 
+        marcadorClima.bindTooltip('Nombre del Clima', {
+            permanent: false,
+            direction: 'top',
+            opacity: 0.7,
+        });
+
+        // Agrega una ventana emergente personalizada al marcador
+        const popupContent = `
+            <div class="custom-popup">
+                <h2>Nombre del Clima</h2>
+                <ul>
+                    <li>Dato 1: Valor 1</li>
+                    <li>Dato 2: Valor 2</li>
+                    <!-- Agrega más datos según sea necesario -->
+                </ul>
+            </div>
+        `;
+
+        marcadorClima.bindPopup(popupContent);
+
+        // Agrega un evento de apertura de ventana modal para acceder al contenido
+        marcadorClima.on('popupopen', function () {
+            // Puedes realizar acciones adicionales al abrir la ventana emergente si es necesario
+        });
+    });
 });
- 
+
+// Agrega un evento de clic al botón "Hidrológico" para recargar la página
+document.getElementById('hidrologicoButton').addEventListener('click', function () {
+    // Recarga la página para restaurar la visualización inicial
+    location.reload();
+});
