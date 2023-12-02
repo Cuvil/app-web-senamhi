@@ -25,7 +25,7 @@
 .cont-menu{
     background-color: rgb(42, 42, 42);
     box-shadow: 2px 0px 5px 2px rgb(66, 66, 66);
-    width: 300px;
+    width: 50px;
     height: 100vh;
     position: fixed;
     top: 0;
@@ -34,13 +34,26 @@
     z-index: 9999;
   
 }
+
+/* Añadir margen superior a los elementos del menú */
+.cont-menu ul li#climaButton,
+.cont-menu ul li#hidrologicoButton {
+    margin-top: 10px; /* Ajusta la cantidad de margen según tus preferencias */
+}
+
+/* Ajuste específico para el elemento con ID climaButton */
+.cont-menu ul li#climaButton {
+    margin-top: 50px; /* Ajusta la cantidad de margen según tus preferencias */
+}
+
+
+
 /*Estilos para agregar en javascrip*/
 
 .opacity{
     background-color: rgb(0, 0, 0);
     transition: all .5s ease;
 }
-
 
 /*Estilos para el listado del menu*/
 .cont-menu ul {
@@ -61,10 +74,11 @@
     background-color: rgb(228, 228, 228);
     color: 42,42,42;
 }
+
 /* Estilos para pantallas más pequeñas (menos de 768px de ancho) */
-@media screen and (min-width: 767px) {
+@media screen and (max-width: 2500px) {
     .cont-menu {
-        width: 100%; /* Ancho del menú en pantallas pequeñas */
+        width: 20%; /* Ancho del menú en pantallas pequeñas */
         left: -100%; /* Inicialmente oculto fuera de la pantalla */
         transition: left 0.5s ease; /* Utiliza la propiedad "left" para la transición */
     }

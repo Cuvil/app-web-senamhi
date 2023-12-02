@@ -56,7 +56,56 @@ document.addEventListener('DOMContentLoaded', function () {
         overlay.style.display = 'none'; // Oculta la ventana emergente al hacer clic
     });
 
-    // Recorre las estaciones y crea marcadores
+    // Obtén una referencia a los elementos del menú y del contenedor de menú
+    const climaButton = document.getElementById('climaButton');
+    const hidrologicoButton = document.getElementById('hidrologicoButton');
+
+    // Agrega eventos de clic a los botones para ocultar el menú
+    climaButton.addEventListener('click', () => {
+        menu.classList.remove('active');
+    });
+
+    hidrologicoButton.addEventListener('click', () => {
+        menu.classList.remove('active');
+    });
+
+
+
+    //tabla
+
+    const datosEstacion = {
+        EstId: 2,
+        EstNombre: "CONTAMANA",
+        EstLatitud: -7.35,
+        EstLongitud: -75.01,
+        EstRio: "UCAYALI",
+        EstInstitucion: "SENAMHI",
+        EstColor: "VERDE",
+        PeriodoId: 6,
+        Periodo: "VACIANTE",
+        // ... otros datos
+    };
+    
+    const datosNivel = {	
+        NivelId: niveles.NivelId,
+        EstId:	niveles.EstId,
+        NivelFecha:	niveles.NivelFecha,
+        NivelFechaPasado:	niveles.NivelFechaPasado,
+        NivelFechaActual:	niveles.NivelFechaActual,
+        NivelNormal:	niveles.NivelNormal,
+        NivelAHPasado:	niveles.NivelAHPasado,
+        NivelAHActual:	niveles.NivelAHActual,
+    };
+    const datosUmbral = {
+        UmbId: umbrales.UmbId,
+        EstId:	umbrales.EstId,
+        UmbValor:	umbrales.UmbValor,
+        UmbColor:	umbrales.UmbColor,
+    };
+
+
+    // Recorre las estaciones y crea marcadores 
+    const marcadoresOriginales = [];
     estaciones.forEach(function (estacion) {
         // Define el ícono basado en el color
         let iconoUrl;
@@ -93,15 +142,19 @@ document.addEventListener('DOMContentLoaded', function () {
                 <p>Latitud: ${estacion.EstLatitud}</p>
                 <p>Longitud: ${estacion.EstLongitud}</p>
                 <a href="#" class="show-graph-button" data-estacion-id="${estacion.EstId}">Ver gráfico</a>
+                <a href="#" class="show-table-button" data-estacion-id="${estacion.EstId}">Ver Tabla</a>
             </div>
         `;
 
         // Agrega la ventana emergente personalizada al marcador
         marker.bindPopup(popupContent);
         let estacionId = null; 
+
         // Agrega un evento de apertura de ventana modal para acceder al contenido
         marker.on('popupopen', function () {
+
             const showGraphButtons = document.querySelectorAll('.show-graph-button');
+
             showGraphButtons.forEach(function (button) {
                 button.addEventListener('click', function (e) {
                     e.preventDefault();
@@ -113,6 +166,7 @@ document.addEventListener('DOMContentLoaded', function () {
                         if (estacionId === estacion.EstId) {
                             // Tu lógica para mostrar el nombre de la estación en el gráfico
                             console.log(estacion.EstNombre);
+
                         }
                     });
 
@@ -124,7 +178,35 @@ document.addEventListener('DOMContentLoaded', function () {
                     $('#graph-modal').modal('show');
                 });
             });
+
+             // Agregamos también el evento de clic para los botones 'Ver Tabla'
+            const showTableButtons = document.querySelectorAll('.show-table-button');
+            showTableButtons.forEach(function (button) {
+                button.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    estacionId = parseInt(button.getAttribute('data-estacion-id'));
+
+                    estaciones.forEach(function (estacion) {
+                        if (estacionId === estacion.EstId) {
+                          
+                            mostrarDatosEnTabla({
+                                Estacion: estacion,
+                                Nivel: datosNivel,  // Asegúrate de tener datosNivel definido en tu código
+                                Umbral: datosUmbral  // Asegúrate de tener datosUmbral definido en tu código
+                            });
+
+                            // Muestra la ventana modal
+                            $('#tabla-modal').modal('show');
+                        }
+                    });
+                });
+            });
+
+
         });
+
+        // Almacena los marcadores originales en el array después de haberlos creado
+        marcadoresOriginales.push(marker);
     });
 
     // Escucha el evento de apertura de la ventana modal
@@ -140,6 +222,63 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 
 
+    
+
+    // Llamada a la función para mostrar la tabla de datos cuando se hace clic en un marcador
+    function mostrarDatosEnTabla(datos) {
+        const tabla = document.createElement('table');
+        tabla.classList.add('table');
+
+        for (const categoria in datos) {
+            if (datos.hasOwnProperty(categoria)) {
+                const categoriaDatos = datos[categoria];
+
+                // Añade un encabezado para la categoría
+                const encabezadoFila = tabla.insertRow();
+                const encabezadoCelda = encabezadoFila.insertCell();
+                encabezadoCelda.colSpan = 2;
+                encabezadoCelda.textContent = categoria;
+
+                // Añade datos para la categoría
+                for (const key in categoriaDatos) {
+                    if (categoriaDatos.hasOwnProperty(key)) {
+                        const fila = tabla.insertRow();
+                        const celda1 = fila.insertCell(0);
+                        const celda2 = fila.insertCell(1);
+
+                        celda1.textContent = key;
+                        celda2.textContent = categoriaDatos[key];
+                    }
+                }
+            }
+        }
+
+        // Encuentra el contenedor de la tabla en tu HTML (ajusta el selector según tu estructura)
+        const tablaContainer = document.getElementById('tabla-container');
+
+        // Limpia cualquier contenido previo en el contenedor
+        tablaContainer.innerHTML = '';
+
+        // Agrega la tabla al contenedor
+        tablaContainer.appendChild(tabla);
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     let marcadorClima = null;
 
     // Agrega un evento de clic al botón "Clima" para mostrar un único marcador
@@ -152,7 +291,7 @@ document.addEventListener('DOMContentLoaded', function () {
         });
 
         // Crea un marcador para el clima y añádelo al mapa
-        marcadorClima = L.marker([-3.722, -73.092], {
+        marcadorClima = L.marker([-3.75, -73.25], {
             icon: L.icon({
                 iconUrl: 'img/Marker/rojo.png', // Ruta al icono que desees usar
                 iconSize: [40, 40],
@@ -161,35 +300,96 @@ document.addEventListener('DOMContentLoaded', function () {
         }).addTo(mapa);
 
         // Agrega un tooltip al marcador para mostrar el nombre al pasar el mouse 
-        marcadorClima.bindTooltip('Nombre del Clima', {
+        marcadorClima.bindTooltip('QUISTOCOCHA', {
             permanent: false,
             direction: 'top',
             opacity: 0.7,
         });
-
+        
+        // Datos de ejemplo para la tabla (reemplázalos con tus datos reales)
+        const datosTabla = autovalores;
+        const datosOrdenados = datosTabla.sort((a, b) => new Date(b.AutoFechaHora) - new Date(a.AutoFechaHora));
+        const ultimosDatos = datosOrdenados.slice(0, 7);
         // Agrega una ventana emergente personalizada al marcador
         const popupContent = `
-            <div class="custom-popup">
-                <h2>Nombre del Clima</h2>
-                <ul>
-                    <li>Dato 1: Valor 1</li>
-                    <li>Dato 2: Valor 2</li>
-                    <!-- Agrega más datos según sea necesario -->
-                </ul>
-            </div>
+        <div class="custom-popup style="max-width: 600px; padding: 20px;">
+            <h2>ESTACION: QUISTOCOCHA</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th style="padding-right: 10px;">AutoId</th>
+                        <th style="padding-right: 10px;">Fecha y Hora</th>
+                        <th style="padding-right: 10px;">Temperatura</th>
+                        <th style="padding-right: 10px;">Humedad Relativa</th>
+                        <th style="padding-right: 10px;">Radiación</th>
+                        <th style="padding-right: 10px;">Dirección del Viento</th>
+                        <th style="padding-right: 10px;">Velocidad del Viento</th>
+                        <th style="padding-right: 10px;">Precipitación</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    ${ultimosDatos.map(data => `
+                        <tr>
+                            <td>${data.AutoId}</td>
+                            <td>${data.AutoFechaHora}</td>
+                            <td>${data.AutoTemp}</td>
+                            <td>${data.AutoHR}</td>
+                            <td>${data.AutoRadiacion}</td>
+                            <td>${data.AutoWindDir}</td>
+                            <td>${data.AutoWindVel}</td>
+                            <td>${data.AutoPP}</td>
+                        </tr>
+                    `).join('')}
+                </tbody>
+            </table>
+        </div>
         `;
 
-        marcadorClima.bindPopup(popupContent);
+        // Aplicar estilos CSS para personalizar el tamaño de la ventana emergente
+        const popupStyles = `
+        .leaflet-popup-content-wrapper {
+            width: 400px !important; /* Ajusta el ancho máximo según tus necesidades */
+            max-height: 600px !important; /* Ajusta la altura máxima según tus necesidades */
+            overflow-y: auto; /* Agrega desplazamiento vertical si el contenido es demasiado largo */
+        }
 
-        // Agrega un evento de apertura de ventana modal para acceder al contenido
-        marcadorClima.on('popupopen', function () {
-            // Puedes realizar acciones adicionales al abrir la ventana emergente si es necesario
+        .custom-popup {
+            padding: 20px; /* Ajusta el espacio interno según tus necesidades */
+            width: 100%; /* Ajusta el ancho del contenido al 100% del contenedor */
+            height: 100%; /* Ajusta la altura del contenido al 100% del contenedor */
+        }
+
+        .custom-popup table {
+            width: 100%; /* Ocupa el ancho completo del contenedor */
+            margin-top: 10px; /* Ajusta el espacio superior según tus necesidades */
+        }
+
+        .custom-popup th,
+        .custom-popup td {
+            padding: 8px; /* Ajusta el espacio interno de las celdas según tus necesidades */
+        }`;
+
+        // Agregar estilos CSS dinámicamente al head del documento
+        const styleElement = document.createElement('style');
+        styleElement.innerHTML = popupStyles;
+        document.head.appendChild(styleElement);
+
+        marcadorClima.bindPopup(popupContent);
+    });
+        
+    
+        // Agrega un evento de clic al botón "Hidrológico" para restaurar los marcadores originales
+        document.getElementById('hidrologicoButton').addEventListener('click', function () {
+            // Elimina todos los marcadores actuales en el mapa
+            mapa.eachLayer(function (layer) {
+                if (layer instanceof L.Marker) {
+                    mapa.removeLayer(layer);
+                }
+            });
+        
+        // Restaura los marcadores originales
+        marcadoresOriginales.forEach(function (marker) {
+            marker.addTo(mapa);
         });
     });
-});
-
-// Agrega un evento de clic al botón "Hidrológico" para recargar la página
-document.getElementById('hidrologicoButton').addEventListener('click', function () {
-    // Recarga la página para restaurar la visualización inicial
-    location.reload();
 });

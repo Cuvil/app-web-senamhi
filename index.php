@@ -6,7 +6,7 @@
     <meta name="google-site-verification" content="kOeN4tbtDsADGYewavTtdB1UKpVWJXS5eHpvUhZvMrU" />
     <title>Senamhidz8</title>
     <meta name="dz8" content="senamhi direccion zonal 8 dz8">
-    <link rel="stylesheet" href="styles.css">
+    
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
     <!-- Agrega estos enlaces en la sección head de tu HTML -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
@@ -17,6 +17,8 @@
 
     <script src="https://code.highcharts.com/highcharts.js"></script>
     <script src="https://code.highcharts.com/highcharts-more.js"></script>
+
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
     <?php
@@ -44,34 +46,30 @@
         echo "No se pudieron obtener datos.";
     }
     ?>
+    
+    <?php
+    // Incluir el archivo de conexión
+    include 'modelo/conexion1.php';
+   ?>
 
 
-
-    <button id="intranetButton">Intranet</button>
+    <button class="iniciarSesion" id="intranetButton">Iniciar Sesion</button>
     <div class="icono-menu">
         <img src="img/menu.png" alt="" id="icono-menu">
     </div>
+
     <div class="cont-menu active" id="menu">
         <ul>
-            <li>Home</li>
-            <li>Home</li>
-            <li>Home</li>
-            <li>Home</li>
+            <li id="climaButton">Estacion Automatica</li>
+            <li id="hidrologicoButton">Estacion Hidrologica</li>
             <li>Home</li>
         </ul>
     </div>
-    <!-- Agrega el botón Hidrológico -->
-    <button id="hidrologicoButton" class="btn btn-primary" style="position: absolute; top: 10px; left: 60%; transform: translateX(-50%); z-index: 1000;">Hidrológico</button>
-
-    <button id="climaButton" class="btn btn-primary" style="position: absolute; top: 10px; left: 50%; transform: translateX(-50%); z-index: 1000;">Clima</button>
-
 
     <div id="map-container">
         <div id="map"></div>
     </div>
-
     <!-- Contenedor para el gráfico -->
-    <!-- Estructura de la ventana modal -->
     <div class="modal fade" id="graph-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content custom-modal-content">
@@ -86,6 +84,42 @@
         </div>
     </div>
 
+    <!-- Modal para la tabla -->
+<div class="modal fade" id="tabla-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Tabla de Datos</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <!-- Contenedor para la tabla -->
+                <div id="tabla-container"></div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+    <div class="modal fade" id="graph-modal1" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content custom-modal-content">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <div class="modal-body">
+                    <!-- Contenido del gráfico -->
+                    <div id="contenedor-grafico" style="width: 100%; height: 350px;"></div>
+                </div>
+            </div>
+        </div>
+    </div>
     
     <div id="overlay" class="hidden">
         <div id="loginPopup" class="popup">
@@ -106,7 +140,9 @@
         </div>
     </div>
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+    <script type="module" src="controlador/grafica1.js"></script>
     <script type="module" src="controlador/main.js"></script>
     <script type="module" src="controlador/grafica.js"></script>
+    
 </body>
 </html>
