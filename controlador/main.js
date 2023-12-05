@@ -276,35 +276,134 @@ document.addEventListener('DOMContentLoaded', function () {
 
 
 
+<<<<<<< HEAD
+=======
 
 
 
     let marcadorClima = null;
+>>>>>>> dc253088f5cd71dd224f0b1009748059156eda34
 
-    // Agrega un evento de clic al botón "Clima" para mostrar un único marcador
     document.getElementById('climaButton').addEventListener('click', function () {
-        // Elimina todos los marcadores actuales en el mapa
+        // Limpiar marcadores existentes
         mapa.eachLayer(function (layer) {
             if (layer instanceof L.Marker) {
                 mapa.removeLayer(layer);
             }
         });
+<<<<<<< HEAD
+    
+        let marcadorClima = null;
+    
+        // Función para mostrar la tabla
+        function mostrarTabla(datosTabla) {
+            // Actualizar datos de la tabla
+            const ultimosDatos = datosTabla.slice(-7);
+            mostrarTablaEnModal(ultimosDatos);
+        }
+    
+        function mostrarTablaEnModal(datosTabla) {
+            const datosOrdenados = datosTabla.sort((a, b) => new Date(b.AutoFechaHora) - new Date(a.AutoFechaHora));
+            const ultimosDatos = datosOrdenados.slice(-7);
+    
+            document.getElementById('modalContent').innerHTML = `
+                <div class="table-responsive">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Fecha y Hora </th>
+                                <th>Temperatura °C</th>
+                                <th>Humedad Relativa</th>
+                                <th>Radiación </th>
+                                <th>Dirección del Viento grados</th>
+                                <th>Velocidad del Viento m/S</th>
+                                <th>Precipitación mm</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            ${ultimosDatos.map(data => `
+                                <tr>
+                                    <td>${data.AutoFechaHora}</td>
+                                    <td>${data.AutoTemp}</td>
+                                    <td>${data.AutoHR}</td>
+                                    <td>${data.AutoRadiacion}</td>
+                                    <td>${data.AutoWindDir}</td>
+                                    <td>${data.AutoWindVel}</td>
+                                    <td>${data.AutoPP}</td>
+                                </tr>
+                            `).join('')}
+                        </tbody>
+                    </table>
+                </div>
+            `;
+    
+            const modal = new bootstrap.Modal(document.getElementById('tablaModal'), {
+                backdrop: 'static',
+                keyboard: false
+            });
+    
+            modal.show();
+        }
+    
+        function mostrarGrafico() {
+            // Agrega lógica para mostrar el gráfico
+            // Puedes implementar esta función según tus necesidades
+        }
+    
+=======
 
         // Crea un marcador para el clima y añádelo al mapa
+>>>>>>> dc253088f5cd71dd224f0b1009748059156eda34
         marcadorClima = L.marker([-3.75, -73.25], {
             icon: L.icon({
-                iconUrl: 'img/Marker/rojo.png', // Ruta al icono que desees usar
+                iconUrl: 'img/Marker/rojo.png',
                 iconSize: [40, 40],
                 iconAnchor: [20, 40],
             }),
         }).addTo(mapa);
+<<<<<<< HEAD
+    
+        // Evento de clic en el marcador
+        marcadorClima.on('click', function () {
+            const popupContent = `
+                <div>
+                    <p>Haga clic en una opción:</p>
+                    <button id="verTablaBtn">Ver Tabla</button>
+                    <button onclick="mostrarGrafico()">Ver Gráfico</button>
+                </div>
+            `;
+    
+            marcadorClima.bindPopup(popupContent).openPopup();
+    
+            // Desvincula el evento de clic anterior si existe
+            document.getElementById('verTablaBtn').removeEventListener('click', mostrarTablaClickHandler);
+    
+            // Asigna el nuevo controlador de eventos
+            document.getElementById('verTablaBtn').addEventListener('click', mostrarTablaClickHandler);
+        });
+    
+=======
 
         // Agrega un tooltip al marcador para mostrar el nombre al pasar el mouse 
+>>>>>>> dc253088f5cd71dd224f0b1009748059156eda34
         marcadorClima.bindTooltip('QUISTOCOCHA', {
             permanent: false,
             direction: 'top',
             opacity: 0.7,
         });
+<<<<<<< HEAD
+    
+        // Define la función para manejar el clic en el botón de la tabla
+        function mostrarTablaClickHandler() {
+            mostrarTabla(autovalores);
+        }
+    });
+    
+    
+
+    
+
+=======
         
         // Datos de ejemplo para la tabla (reemplázalos con tus datos reales)
         const datosTabla = autovalores;
@@ -377,6 +476,7 @@ document.addEventListener('DOMContentLoaded', function () {
         marcadorClima.bindPopup(popupContent);
     });
         
+>>>>>>> dc253088f5cd71dd224f0b1009748059156eda34
     
         // Agrega un evento de clic al botón "Hidrológico" para restaurar los marcadores originales
         document.getElementById('hidrologicoButton').addEventListener('click', function () {

@@ -34,6 +34,33 @@
     z-index: 9999;
   
 }
+<<<<<<< HEAD
+.iniciarSesion {
+    background-color: #4CAF50;
+    border: none;
+    color: white;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    font-size: 16px;
+    position: absolute;
+    top: 15px;
+    right: 15px; /* Agrega 'right' para moverlo al lado contrario */
+    margin-right: 0; /* Elimina 'margin-right' si no se necesita */
+    z-index: 99999;
+    border-radius: 20px;
+}
+
+/* Estilos específicos para pantallas más pequeñas (móviles) */
+@media screen and (max-width: 600px) {
+    .iniciarSesion {
+        padding: 8px 14px;
+        font-size: 10px;
+        /* Otros estilos específicos para móviles */
+    }
+}
+=======
+>>>>>>> dc253088f5cd71dd224f0b1009748059156eda34
 
 /* Añadir margen superior a los elementos del menú */
 .cont-menu ul li#climaButton,
@@ -121,22 +148,8 @@
     height: 100%; /* El mapa ocupará toda la altura del contenedor */
 }
 
-/* Estilos del botón de Intranet */
-button#intranetButton {
-    background-color: #4CAF50;
-    border: none;
-    color: white;
-    padding: 10px 20px;
-    text-align: center;
-    text-decoration: none;
-    font-size: 16px;
-    position: absolute;
-    top: 15px;
-    right: 15px; /* Agrega 'right' para moverlo al lado contrario */
-    margin-right: 0; /* Elimina 'margin-right' si no se necesita */
-    z-index: 99999;
-    border-radius: 20px;
-}
+
+
 /* Estilos del formulario de inicio de sesión */
 .form-group {
     display: flex;

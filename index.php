@@ -1,8 +1,10 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
+    <meta http-equiv="Cache-Control" content="no-store, no-cache, must-revalidate, max-age=0">
+    <meta http-equiv="Pragma" content="no-cache">
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="google-site-verification" content="kOeN4tbtDsADGYewavTtdB1UKpVWJXS5eHpvUhZvMrU" />
     <title>Senamhidz8</title>
     <meta name="dz8" content="senamhi direccion zonal 8 dz8">
@@ -10,7 +12,8 @@
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
     <!-- Agrega estos enlaces en la sección head de tu HTML -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
@@ -21,6 +24,11 @@
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
+
+<?php
+    // Incluir el archivo de conexión
+    include 'modelo/conexion1.php';
+?>
     <?php
     $conec = file_get_contents('http://etechgroup-001-site2.dtempurl.com/estacion/listardatos');
     $array = json_decode($conec, true);
@@ -47,6 +55,13 @@
     }
     ?>
     
+<<<<<<< HEAD
+    
+
+
+    <button class="iniciarSesion" id="intranetButton">Iniciar Sesion</button>
+    
+=======
     <?php
     // Incluir el archivo de conexión
     include 'modelo/conexion1.php';
@@ -54,6 +69,7 @@
 
 
     <button class="iniciarSesion" id="intranetButton">Iniciar Sesion</button>
+>>>>>>> dc253088f5cd71dd224f0b1009748059156eda34
     <div class="icono-menu">
         <img src="img/menu.png" alt="" id="icono-menu">
     </div>
@@ -84,6 +100,48 @@
         </div>
     </div>
 
+<<<<<<< HEAD
+    <!-- Modal para la tabla de la estacion hidrologica -->
+    <div class="modal fade" id="tabla-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Tabla de Datos</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <!-- Contenedor para la tabla -->
+                    <div id="tabla-container"></div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal para la tabla de la estacion Automatica -->
+    <div id="tablaModal" class="modal fade" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-lg modal-sm" role="document">
+            <div class="modal-content">
+                <!-- Contenido del modal -->
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Últimos 7 datos</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body" id="modalContent">
+                    <!-- Aquí se insertará dinámicamente la tabla -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+=======
     <!-- Modal para la tabla -->
 <div class="modal fade" id="tabla-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
@@ -104,6 +162,7 @@
         </div>
     </div>
 </div>
+>>>>>>> dc253088f5cd71dd224f0b1009748059156eda34
 
 
 
